@@ -957,6 +957,8 @@ def setup_default_config_opts(unprivUid, version, pkgpythondir):
         'package_state_opts': {
             'available_pkgs': False,
             'installed_pkgs': True,
+            'rpm_command' : '/bin/rpm',
+            'rpmdb_path' : '/var/lib/rpm',
         },
         'pm_request_enable': False,
         'pm_request_opts': {},
@@ -1071,6 +1073,7 @@ def setup_default_config_opts(unprivUid, version, pkgpythondir):
     config_opts['microdnf_builddep_opts'] = []
     config_opts['microdnf_common_opts'] = []
     config_opts['rpm_command'] = '/bin/rpm'
+    config_opts['rpmdb_path'] = '/var/lib/rpm'
     config_opts['rpmbuild_command'] = '/usr/bin/rpmbuild'
 
     config_opts['opstimeout'] = 0

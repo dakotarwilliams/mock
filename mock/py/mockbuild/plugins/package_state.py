@@ -67,8 +67,8 @@ class PackageState(object):
         if not self.inst_done and self.installed_pkgs_enabled:
             self.state.start("Outputting list of installed packages")
             out_file = self.buildroot.resultdir + '/installed_pkgs.log'
-            cmd = "rpm -qa --root '%s' --qf '%%{nevra} %%{buildtime} %%{size} %%{pkgid} installed\\n' > %s" % (
-                self.buildroot.make_chroot_path(), out_file)
+            cmd = "%s --dbpath %s -qa --root '%s' --qf '%%{nevra} %%{buildtime} %%{size} %%{pkgid} installed\\n' > %s" % (
+                self.conf['rpm_command'], self.conf['rpmdb_path'], self.buildroot.make_chroot_path(), out_file)
             with self.buildroot.uid_manager:
                 mockbuild.util.do(cmd, shell=True, env=self.buildroot.env)
             self.inst_done = True

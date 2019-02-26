@@ -222,8 +222,9 @@ class Commands(object):
         self.buildroot.root_log.info("Installed packages:")
         self.buildroot.nuke_rpm_db()
         util.do(
-            "%s --root %s -qa" % (self.config['rpm_command'],
-                                  self.buildroot.make_chroot_path()),
+            "%s --dbpath %s --root %s -qa" % (self.config['rpm_command'],
+                                              self.config['rpmdb_path'],
+                                              self.buildroot.make_chroot_path()),
             raiseExc=False,
             shell=True,
             env=self.buildroot.env,
@@ -444,7 +445,7 @@ class Commands(object):
 
     @traceLog()
     def get_specfile_name(self, srpm_path):
-        files = self.buildroot.doChroot([self.config['rpm_command'], "-qpl", srpm_path],
+        files = self.buildroot.doChroot([self.config['rpm_command'], "--dbpath", self.config['rpmdb_path'], "-qpl", srpm_path],
                                         shell=False, uid=self.buildroot.chrootuid, gid=self.buildroot.chrootgid,
                                         nspawn_args=self._get_nspawn_args(),
                                         unshare_net=self.private_network,
@@ -458,7 +459,7 @@ class Commands(object):
 
     @traceLog()
     def install_srpm(self, srpm_path):
-        self.buildroot.doChroot([self.config['rpm_command'], "-Uvh", "--nodeps", srpm_path],
+        self.buildroot.doChroot([self.config['rpm_command'], "--dbpath", self.config['rpmdb_path'], "-Uvh", "--nodeps", srpm_path],
                                 shell=False, uid=self.buildroot.chrootuid, gid=self.buildroot.chrootgid,
                                 user=self.buildroot.chrootuser,
                                 nspawn_args=self._get_nspawn_args(),
