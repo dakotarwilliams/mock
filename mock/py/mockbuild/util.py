@@ -897,7 +897,7 @@ def setup_default_config_opts(unprivUid, version, pkgpythondir):
     config_opts['createrepo_on_rpms'] = False
     config_opts['createrepo_command'] = '/usr/bin/createrepo_c -d -q -x *.src.rpm'  # default command
 
-    config_opts['tar'] = "gnutar"
+    config_opts['tar'] = "bsdtar"
 
     config_opts['backup_on_clean'] = False
     config_opts['backup_base_dir'] = os.path.join(config_opts['basedir'], "backup")
@@ -927,7 +927,7 @@ def setup_default_config_opts(unprivUid, version, pkgpythondir):
             'age_check': True,
             'max_age_days': 15,
             'dir': "%(cache_topdir)s/%(root)s/root_cache/",
-            'tar': "gnutar",
+            'tar': "bsdtar",
             'compress_program': 'pigz',
             'decompress_program': None,
             'exclude_dirs': ["./proc", "./sys", "./dev", "./tmp/ccache", "./var/cache/yum", "./var/cache/dnf"],
@@ -958,7 +958,7 @@ def setup_default_config_opts(unprivUid, version, pkgpythondir):
             'available_pkgs': False,
             'installed_pkgs': True,
             'rpm_command' : '/bin/rpm',
-            'rpmdb_path' : '/var/lib/rpm',
+            'rpmdb_path' : '/usr/lib/sysimage/rpm',
         },
         'pm_request_enable': False,
         'pm_request_opts': {},
@@ -1073,7 +1073,7 @@ def setup_default_config_opts(unprivUid, version, pkgpythondir):
     config_opts['microdnf_builddep_opts'] = []
     config_opts['microdnf_common_opts'] = []
     config_opts['rpm_command'] = '/bin/rpm'
-    config_opts['rpmdb_path'] = '/var/lib/rpm'
+    config_opts['rpmdb_path'] = '/usr/lib/sysimage/rpm'
     config_opts['rpmbuild_command'] = '/usr/bin/rpmbuild'
 
     config_opts['opstimeout'] = 0
